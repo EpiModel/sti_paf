@@ -173,7 +173,7 @@ df.direct <- data.frame(sum_GC,sum_CT,sum_syph,sum_urethral,sum_rectal,
                         cell1_sti,cell2_sti,cell3_sti,cell4_sti,
                         incid,ir100,trans.main,trans.pers,trans.inst)
 
-for (sim in 1:1000) {
+for (scenario in 1:1000) {
   hiv_trans_msm(dat,at)
 }
 
