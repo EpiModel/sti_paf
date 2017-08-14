@@ -20,7 +20,21 @@ ir.base <- unname(colMeans(sim.base$epi$ir100))
 ir.base
 incid.base <- unname(colSums(sim.base$epi$incid))
 
-sims <- c(5001:5015)
+sims <- c(5001,
+          5004,
+          5007,
+          5010,
+          5013,
+          5002,
+          5005,
+          5008,
+          5011,
+          5014,
+          5003,
+          5006,
+          5009,
+          5012,
+          5015)
 
 qnt.low <- 0.25
 qnt.high <- 0.75
@@ -74,81 +88,60 @@ for (i in seq_along(sims)) {
   #sim <- truncate_sim(sim, at = 2600)
   mn <- as.data.frame(sim)
   
-  # Incidence Count
+  df$scenario_num[i] <- sims[i]
+  
   #HIV diagnosis counts
   df$hiv.incid.low[i] <- quantile(mn$incid, probs = qnt.low, na.rm = TRUE, names = FALSE)
   df$hiv.incid[i] <- quantile(mn$incid, probs = 0.50, na.rm = TRUE, names = FALSE)
   df$hiv.incid.high[i] <- quantile(mn$incid, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
-  vec.ir.hiv <- unname(colMeans(tail(sim$epi$ir100, 52)))
-  
   #Incidence Rate
-  df$ir100.low[i] <- quantile(vec.ir.hiv, probs=qnt.low, na.rm = TRUE, names = FALSE)
-  df$ir100[i] <- quantile(vec.ir.hiv, probs=0.50, na.rm = TRUE, names = FALSE)
-  df$ir100.high[i] <- quantile(vec.ir.hiv, probs=qnt.high, na.rm = TRUE, names = FALSE)
+  df$ir100.low[i] <- quantile(mn$ir100, probs=qnt.low, na.rm = TRUE, names = FALSE)
+  df$ir100[i] <- quantile(mn$ir100, probs=0.50, na.rm = TRUE, names = FALSE)
+  df$ir100.high[i] <- quantile(mn$ir100, probs=qnt.high, na.rm = TRUE, names = FALSE)
+  df$ir100.mean[i] <- mean(mn$ir100)
+  
+  #sum cell1 - cell4 for proportion
+  cell_sum_low <- quantile(mn$cell1_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) 
+  
+  cell_sum <- quantile(mn$cell1_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = 0.50, na.rm = TRUE, names = FALSE) 
+  
+  cell_sum_high <- quantile(mn$cell1_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) 
   
   #Cell1 - Cell4
-  num.cell1.sti <- unname(colMeans(tail(sim$epi$cell1_sti, 52)))
-  num.cell2.sti <- unname(colMeans(tail(sim$epi$cell2_sti, 52)))
-  num.cell3.sti <- unname(colMeans(tail(sim$epi$cell3_sti, 52)))
-  num.cell4.sti <- unname(colMeans(tail(sim$epi$cell4_sti, 52)))
+  df$cell1.low[i] <- (quantile(mn$cell1_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell1[i] <- (quantile(mn$cell1_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell1.high[i] <- (quantile(mn$cell1_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  num.cell_total.sti <- unname(colMeans(tail(sim$epi$cell1_sti, 52))) + 
-                      unname(colMeans(tail(sim$epi$cell2_sti, 52))) +
-                      unname(colMeans(tail(sim$epi$cell3_sti, 52))) +
-                      unname(colMeans(tail(sim$epi$cell4_sti, 52)))
+  df$cell2.low[i] <- (quantile(mn$cell2_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell2[i] <- (quantile(mn$cell2_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell2.high[i] <- (quantile(mn$cell2_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  vec.cell1.sti <- num.cell1.sti / num.cell_total.sti
-  vec.cell2.sti <- num.cell2.sti / num.cell_total.sti
-  vec.cell3.sti <- num.cell3.sti / num.cell_total.sti
-  vec.cell4.sti <- num.cell4.sti / num.cell_total.sti
+  df$cell3.low[i] <- (quantile(mn$cell3_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell3[i] <- (quantile(mn$cell3_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell3.high[i] <- (quantile(mn$cell3_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-
-  #Cell1 - Cell4
-  df$cell1.low[i] <- (quantile(vec.cell1.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell1[i] <- (quantile(vec.cell1.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell1.high[i] <- (quantile(vec.cell1.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
+  df$cell4.low[i] <- (quantile(mn$cell4_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell4[i] <- (quantile(mn$cell4_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell4.high[i] <- (quantile(mn$cell4_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  df$cell2.low[i] <- (quantile(vec.cell2.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell2[i] <- (quantile(vec.cell2.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell2.high[i] <- (quantile(vec.cell2.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  df$cell3.low[i] <- (quantile(vec.cell3.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell3[i] <- (quantile(vec.cell3.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell3.high[i] <- (quantile(vec.cell3.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  df$cell4.low[i] <- (quantile(vec.cell4.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell4[i] <- (quantile(vec.cell4.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell4.high[i] <- (quantile(vec.cell4.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  #PAF - low, median, and high all compared against median null scenario
-  df$paf.low[i] <- ((df$ir100.low[i] - df$ir100[1]) / df$ir100.low[i])*100
-  df$paf[i] <- ((df$ir100[i] - df$ir100[1]) / df$ir100[i])*100
-  df$paf.high[i] <- ((df$ir100.high[i] - df$ir100[1]) / df$ir100.high[i])*100
-  
+  #PAF
+  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
+  df$paf[i] <- (quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE)
+  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
   cat("*")
   
 }
-
-df
-
-names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
-    c("5001",
-      "5002",
-      "5003",
-      "5004",
-      "5005",
-      "5006",
-      "5007",
-      "5008",
-      "5009",
-      "5010",
-      "5011",
-      "5012",
-      "5013",
-      "5014",
-      "5015")
 
 df
 write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Highest Prob.csv")
@@ -163,7 +156,21 @@ haz.base <- as.numeric(colMeans(tail(sim.base$epi$ir100, 52)))
 ir.base <- unname(colMeans(sim.base$epi$ir100)) * 1000
 incid.base <- unname(colSums(sim.base$epi$incid))
 
-sims <- c(5016:5030)
+sims <- c(5016,
+          5019,
+          5022,
+          5025,
+          5028,
+          5017,
+          5020,
+          5023,
+          5026,
+          5029,
+          5018,
+          5021,
+          5024,
+          5027,
+          5030)
 
 qnt.low <- 0.25
 qnt.high <- 0.75
@@ -217,58 +224,56 @@ for (i in seq_along(sims)) {
   #sim <- truncate_sim(sim, at = 2600)
   mn <- as.data.frame(sim)
   
-  # Incidence Count
+  df$scenario_num[i] <- sims[i]
+  
   #HIV diagnosis counts
   df$hiv.incid.low[i] <- quantile(mn$incid, probs = qnt.low, na.rm = TRUE, names = FALSE)
   df$hiv.incid[i] <- quantile(mn$incid, probs = 0.50, na.rm = TRUE, names = FALSE)
   df$hiv.incid.high[i] <- quantile(mn$incid, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
-  vec.ir.hiv <- unname(colMeans(tail(sim$epi$ir100, 52)))
-  
   #Incidence Rate
-  df$ir100.low[i] <- quantile(vec.ir.hiv, probs=qnt.low, na.rm = TRUE, names = FALSE)
-  df$ir100[i] <- quantile(vec.ir.hiv, probs=0.50, na.rm = TRUE, names = FALSE)
-  df$ir100.high[i] <- quantile(vec.ir.hiv, probs=qnt.high, na.rm = TRUE, names = FALSE)
+  df$ir100.low[i] <- quantile(mn$ir100, probs=qnt.low, na.rm = TRUE, names = FALSE)
+  df$ir100[i] <- quantile(mn$ir100, probs=0.50, na.rm = TRUE, names = FALSE)
+  df$ir100.high[i] <- quantile(mn$ir100, probs=qnt.high, na.rm = TRUE, names = FALSE)
+  df$ir100.mean[i] <- mean(mn$ir100)
+  
+  #sum cell1 - cell4 for proportion
+  cell_sum_low <- quantile(mn$cell1_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = qnt.low, na.rm = TRUE, names = FALSE) 
+  
+  cell_sum <- quantile(mn$cell1_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = 0.50, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = 0.50, na.rm = TRUE, names = FALSE) 
+  
+  cell_sum_high <- quantile(mn$cell1_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell2_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell3_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) +
+    quantile(mn$cell4_sti, probs = qnt.high, na.rm = TRUE, names = FALSE) 
   
   #Cell1 - Cell4
-  num.cell1.sti <- unname(colMeans(tail(sim$epi$cell1_sti, 52)))
-  num.cell2.sti <- unname(colMeans(tail(sim$epi$cell2_sti, 52)))
-  num.cell3.sti <- unname(colMeans(tail(sim$epi$cell3_sti, 52)))
-  num.cell4.sti <- unname(colMeans(tail(sim$epi$cell4_sti, 52)))
+  df$cell1.low[i] <- (quantile(mn$cell1_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell1[i] <- (quantile(mn$cell1_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell1.high[i] <- (quantile(mn$cell1_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  num.cell_total.sti <- unname(colMeans(tail(sim$epi$cell1_sti, 52))) + 
-    unname(colMeans(tail(sim$epi$cell2_sti, 52))) +
-    unname(colMeans(tail(sim$epi$cell3_sti, 52))) +
-    unname(colMeans(tail(sim$epi$cell4_sti, 52)))
+  df$cell2.low[i] <- (quantile(mn$cell2_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell2[i] <- (quantile(mn$cell2_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell2.high[i] <- (quantile(mn$cell2_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  vec.cell1.sti <- num.cell1.sti / num.cell_total.sti
-  vec.cell2.sti <- num.cell2.sti / num.cell_total.sti
-  vec.cell3.sti <- num.cell3.sti / num.cell_total.sti
-  vec.cell4.sti <- num.cell4.sti / num.cell_total.sti
+  df$cell3.low[i] <- (quantile(mn$cell3_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell3[i] <- (quantile(mn$cell3_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell3.high[i] <- (quantile(mn$cell3_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
+  df$cell4.low[i] <- (quantile(mn$cell4_sti, probs=qnt.low, na.rm = TRUE, names = FALSE) / cell_sum_low)*100
+  df$cell4[i] <- (quantile(mn$cell4_sti, probs=0.50, na.rm = TRUE, names = FALSE) / cell_sum)*100
+  df$cell4.high[i] <- (quantile(mn$cell4_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
-  #Cell1 - Cell4
-  df$cell1.low[i] <- (quantile(vec.cell1.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell1[i] <- (quantile(vec.cell1.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell1.high[i] <- (quantile(vec.cell1.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  df$cell2.low[i] <- (quantile(vec.cell2.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell2[i] <- (quantile(vec.cell2.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell2.high[i] <- (quantile(vec.cell2.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  df$cell3.low[i] <- (quantile(vec.cell3.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell3[i] <- (quantile(vec.cell3.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell3.high[i] <- (quantile(vec.cell3.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  df$cell4.low[i] <- (quantile(vec.cell4.sti, probs=qnt.low, na.rm = TRUE, names = FALSE))
-  df$cell4[i] <- (quantile(vec.cell4.sti, probs=0.50, na.rm = TRUE, names = FALSE))
-  df$cell4.high[i] <- (quantile(vec.cell4.sti, probs=qnt.high, na.rm = TRUE, names = FALSE))
-  
-  #PAF - low, median, and high all compared against median null scenario
-  df$paf.low[i] <- ((df$ir100.low[i] - df$ir100[1]) / df$ir100.low[i])*100
-  df$paf[i] <- ((df$ir100[i] - df$ir100[1]) / df$ir100[i])*100
-  df$paf.high[i] <- ((df$ir100.high[i] - df$ir100[1]) / df$ir100.high[i])*100
-  
+  #PAF
+  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
+  df$paf[i] <- (quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE)
+  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
   cat("*")
   
@@ -276,22 +281,4 @@ for (i in seq_along(sims)) {
 
 df
 
-names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
-  c("5016",
-    "5017",
-    "5018",
-    "5019",
-    "5020",
-    "5021",
-    "5022",
-    "5023",
-    "5024",
-    "5025",
-    "5026",
-    "5027",
-    "5028",
-    "5029",
-    "5030")
-
-df
 write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Multiplicative.csv")

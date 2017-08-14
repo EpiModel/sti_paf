@@ -18,7 +18,21 @@ haz.base <- as.numeric(mean(sim5001$ir100))
 ir.base <- unname(mean(sim5001$ir100)) * 1000
 incid.base <- unname(mean(sim5001$incid))
 
-sims <- c(5001:5015)
+sims <- c(5001,
+          5004,
+          5007,
+          5010,
+          5013,
+          5002,
+          5005,
+          5008,
+          5011,
+          5014,
+          5003,
+          5006,
+          5009,
+          5012,
+          5015)
 
 qnt.low <- 0.25
 qnt.high <- 0.75
@@ -119,9 +133,9 @@ for (i in seq_along(sims)) {
   df$cell4.high[i] <- (quantile(mn$cell4_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
   #PAF
-  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100.low[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
+  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
   df$paf[i] <- (quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE)
-  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100.high[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
+  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
   cat("*")
   
@@ -129,22 +143,22 @@ for (i in seq_along(sims)) {
 
 df
 
-names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
-  c("5001",
-    "5002",
-    "5003",
-    "5004",
-    "5005",
-    "5006",
-    "5007",
-    "5008",
-    "5009",
-    "5010",
-    "5011",
-    "5012",
-    "5013",
-    "5014",
-    "5015")
+# names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
+#   c("5001",
+#     "5002",
+#     "5003",
+#     "5004",
+#     "5005",
+#     "5006",
+#     "5007",
+#     "5008",
+#     "5009",
+#     "5010",
+#     "5011",
+#     "5012",
+#     "5013",
+#     "5014",
+#     "5015")
 
 df
 write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Highest Prob Direct Effect.csv")
@@ -158,7 +172,21 @@ haz.base <- as.numeric(mean(sim5016$ir100))
 ir.base <- unname(mean(sim5016$ir100))
 incid.base <- unname(mean(sim5016$incid))
 
-sims <- c(5016:5030)
+sims <- c(5016,
+          5019,
+          5022,
+          5025,
+          5028,
+          5017,
+          5020,
+          5023,
+          5026,
+          5029,
+          5018,
+          5021,
+          5024,
+          5027,
+          5030)
 
 qnt.low <- 0.25
 qnt.high <- 0.75
@@ -259,9 +287,9 @@ for (i in seq_along(sims)) {
   df$cell4.high[i] <- (quantile(mn$cell4_sti, probs=qnt.high, na.rm = TRUE, names = FALSE) / cell_sum_high)*100
   
   #PAF
-  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100.low[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
+  df$paf.low[i] <- (quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.low, na.rm = TRUE, names = FALSE)
   df$paf[i] <- (quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = 0.50, na.rm = TRUE, names = FALSE)
-  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100.high[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
+  df$paf.high[i] <- (quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE) - df$ir100[1]) / quantile(mn$ir100, probs = qnt.high, na.rm = TRUE, names = FALSE)
   
   cat("*")
   
@@ -269,22 +297,22 @@ for (i in seq_along(sims)) {
 
 df
 
-names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
-  c("5016",
-    "5017",
-    "5018",
-    "5019",
-    "5020",
-    "5021",
-    "5022",
-    "5023",
-    "5024",
-    "5025",
-    "5026",
-    "5027",
-    "5028",
-    "5029",
-    "5030")
+# names(df$hiv.incid.low) <- names(df$hiv.incid) <- names(df$hiv.incid.high) <- 
+#   c("5016",
+#     "5017",
+#     "5018",
+#     "5019",
+#     "5020",
+#     "5021",
+#     "5022",
+#     "5023",
+#     "5024",
+#     "5025",
+#     "5026",
+#     "5027",
+#     "5028",
+#     "5029",
+#     "5030")
 
 df
 write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Multiplicative Direct Effect.csv")
