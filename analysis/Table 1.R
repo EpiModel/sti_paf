@@ -144,7 +144,7 @@ for (i in seq_along(sims)) {
 }
 
 df
-write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Highest Prob.csv")
+write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 - Final Year - Highest Prob.csv")
 
 #Final year of follow-up - multiplicative
 #Obtain incidence rate and simulation interval for each of the 30 combinations in Table 1
@@ -281,4 +281,4 @@ for (i in seq_along(sims)) {
 
 df
 
-write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Multiplicative.csv")
+write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 - Final Year - Multiplicative.csv")

@@ -11,7 +11,7 @@ source("analysis/fx.R")
 
 #Final year of follow-up - highest prob prevails
 #Obtain incidence rate and simulation interval for each of the 30 combinations in Table 1
-load("data/followup/sim.n5001.rda")
+load("data/followup/sim.n5032.rda")
 sim.base <- sim
 epi_stats(sim.base, at = 520, qnt.low = 0.25, qnt.high = 0.75)
 
@@ -145,11 +145,11 @@ for (i in seq_along(sims)) {
 }
 
 df
-write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Highest Prob.csv")
+write.csv(df, "C:/Users/jsjone2/Desktop/Table 2 - Final Year - Highest Prob.csv")
 
 #Final year of follow-up - multiplicative
 #Obtain incidence rate and simulation interval for each of the 30 combinations in Table 1
-load("data/followup/sim.n5016.rda")
+load("data/followup/sim.n5048.rda")
 sim.base <- sim
 epi_stats(sim.base, at = 520, qnt.low = 0.25, qnt.high = 0.75)
 
@@ -283,4 +283,4 @@ for (i in seq_along(sims)) {
 
 df
 
-write.csv(df, "C:/Users/jsjone2/Desktop/Table 1 Data - Final Year - Multiplicative.csv")
+write.csv(df, "C:/Users/jsjone2/Desktop/Table 2 - Final Year - Multiplicative.csv")
