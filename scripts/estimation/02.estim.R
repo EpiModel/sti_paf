@@ -10,7 +10,7 @@ load("est/nwstats.rda")
 # 1. Main Model -----------------------------------------------------------
 
 # Initialize network
-nw.main <- base_nw.msm(st)
+nw.main <- base_nw_msm(st)
 
 # Assign degree
 nw.main <- assign_degree(nw.main, deg.type = "pers", nwstats = st)
@@ -19,15 +19,16 @@ nw.main <- assign_degree(nw.main, deg.type = "pers", nwstats = st)
 formation.m <- ~edges +
                 nodefactor("deg.pers") +
                 absdiff("sqrt.age") +
+                degrange(from = 2) +
                 offset(nodematch("role.class", diff = TRUE, keep = 1:2))
 
 # Fit model
 fit.m <- netest(nw.main,
                 formation = formation.m,
                 coef.form = c(-Inf, -Inf),
-                target.stats = st$stats.m,
+                target.stats = c(st$stats.m, 0),
                 coef.diss = st$coef.diss.m,
-                constraints = ~bd(maxout = 1),
+                # constraints = ~bd(maxout = 1),
                 set.control.ergm = control.ergm(MPLE.max.dyad.types = 1e10,
                                                 init.method = "zeros",
                                                 MCMLE.maxit = 250))
@@ -46,15 +47,16 @@ formation.p <- ~edges +
                 nodefactor("deg.main") +
                 concurrent +
                 absdiff("sqrt.age") +
+                degrange(from = 3) +
                 offset(nodematch("role.class", diff = TRUE, keep = 1:2))
 
 # Fit model
 fit.p <- netest(nw.pers,
                 formation = formation.p,
                 coef.form = c(-Inf, -Inf),
-                target.stats = st$stats.p,
+                target.stats = c(st$stats.p, 0),
                 coef.diss = st$coef.diss.p,
-                constraints = ~bd(maxout = 2),
+                # constraints = ~bd(maxout = 2),
                 set.control.ergm = control.ergm(MPLE.max.dyad.types = 1e9,
                                                 init.method = "zeros",
                                                 MCMLE.maxit = 250))
@@ -89,13 +91,3 @@ fit.i <- netest(nw.inst,
 # Save data
 est <- list(fit.m, fit.p, fit.i)
 save(est, file = "est/fit.rda")
-
-
-# Diagnostics -------------------------------------------------------------
-
-load("est/fit.rda")
-dx <- netdx(est[[3]], nsims = 10, dynamic = FALSE)
-dx
-
-dx <- simulate(est[[3]]$fit, statsonly = TRUE, nsim = 1000)
-cbind(colMeans(dx)[1:11], est[[3]]$target.stats)

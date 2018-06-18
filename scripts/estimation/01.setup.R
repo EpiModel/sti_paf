@@ -71,7 +71,7 @@ role.B.prob <- role.W.prob <- (c(0.242, 0.321, 0.437) +
 
 
 # Create meanstats
-st <- calc_nwstats.msm(
+st <- calc_nwstats_msm(
   method = 1,
   time.unit = time.unit,
   num.B = num.B,

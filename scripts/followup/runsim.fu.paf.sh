@@ -1,13 +1,13 @@
 #!/bin/bash
 
 ### User specs
-#PBS -N sti-abc-syph
-#PBS -l nodes=1:ppn=16,mem=50gb,feature=16core,walltime=05:00:00:00
+#PBS -N followup
+#PBS -l nodes=1:ppn=16,mem=50gb,feature=16core,walltime=02:00:00
 #PBS -o /suppscr/csde/kweiss2/sti/out
 #PBS -e /suppscr/csde/kweiss2/sti/out
 #PBS -j oe
 #PBS -d /suppscr/csde/kweiss2/sti
-#PBS -m ae
+#PBS -m n
 
 ### Standard specs
 HYAK_NPE=$(wc -l < $PBS_NODEFILE)
@@ -23,4 +23,4 @@ export MX_RCACHE=0
 #module load r_3.2.4
 
 ### App
-R CMD BATCH --vanilla sim.burn.abcsmc4.syph.R out/sim.burn.abcsmc4.syph.n${NSIM}.p${PACC}.Rout
+Rscript sim.fu.paf.R

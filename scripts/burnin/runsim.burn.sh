@@ -2,11 +2,11 @@
 
 ### User specs
 #PBS -N sti-burn
-#PBS -l nodes=1:ppn=16,mem=50gb,feature=16core,walltime=01:00:00
-#PBS -o /gscratch/csde/jebjones/sti/out
-#PBS -e /gscratch/csde/jebjones/sti/out
+#PBS -l nodes=1:ppn=16,mem=50gb,feature=16core,walltime=04:00:00
+#PBS -o /suppscr/csde/kweiss2/sti/out
+#PBS -e /suppscr/csde/kweiss2/sti/out
 #PBS -j oe
-#PBS -d /gscratch/csde/jebjones/sti
+#PBS -d /suppscr/csde/kweiss2/sti
 #PBS -m n
 
 ### Standard specs
@@ -20,7 +20,7 @@ ulimit -v $MEMPERTASK
 export MX_RCACHE=0
 
 ### Modules
-module load r_3.2.4
+#module load r_3.2.4
 
 
 ### App
