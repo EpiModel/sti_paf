@@ -24,8 +24,9 @@
 
 ### Modules
 . /suppscr/csde/sjenness/spack/share/spack/setup-env.sh
-module load gcc-8.2.0-gcc-4.8.5-rhsxipz
-module load r-3.5.1-gcc-8.2.0-4suigve
+
+module load gcc-8.1.0-gcc-4.4.7-eaajvcy
+module load r-3.5.1-gcc-8.1.0-unb32sy
 
 ### App
 Rscript sim.fu.paf.R
