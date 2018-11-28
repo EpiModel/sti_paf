@@ -59,6 +59,12 @@ sbatch -p csde -A csde --array=1-16 --export=SIMNO=6039,NJOBS=16,PART=1,RECTACQ=
 sbatch -p csde -A csde --array=1-16 --export=SIMNO=6040,NJOBS=16,PART=1,RECTACQ=1.0,URETHACQ=1.0,GCTRANS=1.0,CTTRANS=1.0,GCCTTRANS=0,ALLSTITRANS=0 runsim.fu.paf.sh
 
 
+# New for Jeb
+sbatch -p csde -A csde --array=1-16 --export=SIMNO=6041,NJOBS=16,PART=1,RECTACQ=1.97,URETHACQ=1.48,GCTRANS=1,CTTRANS=1,GCCTTRANS=0,ALLSTITRANS=0 runsim.fu.paf.sh
+sbatch -p csde -A csde --array=1-16 --export=SIMNO=6042,NJOBS=16,PART=1,RECTACQ=1.97,URETHACQ=1.48,GCTRANS=1,CTTRANS=1,GCCTTRANS=1,ALLSTITRANS=1 runsim.fu.paf.sh
+sbatch -p csde -A csde --array=1-16 --export=SIMNO=6043,NJOBS=16,PART=1,RECTACQ=1.97,URETHACQ=1.48,GCTRANS=1.3,CTTRANS=1.3,GCCTTRANS=0,ALLSTITRANS=0 runsim.fu.paf.sh
+sbatch -p csde -A csde --array=1-16 --export=SIMNO=6044,NJOBS=16,PART=1,RECTACQ=1.97,URETHACQ=1.48,GCTRANS=1.3,CTTRANS=1.3,GCCTTRANS=1,ALLSTITRANS=1 runsim.fu.paf.sh
+sbatch -p csde -A csde --array=1-16 --export=SIMNO=6045,NJOBS=16,PART=1,RECTACQ=1.0,URETHACQ=1.0,GCTRANS=1.0,CTTRANS=1.0,GCCTTRANS=0,ALLSTITRANS=0 runsim.fu.paf.sh
 
 ## Old Hyak --------------------------------------------------------------------
 
