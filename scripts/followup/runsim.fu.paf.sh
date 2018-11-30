@@ -20,7 +20,7 @@
 #SBATCH --mem=50G
 
 ## Specify the working directory
-#SBATCH --workdir=/suppscr/csde/kweiss2/sti
+#SBATCH --workdir=/gscratch/csde/kweiss2/sti
 
 ### Modules
 . /gscratch/csde/sjenness/spack/share/spack/setup-env.sh
