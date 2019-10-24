@@ -4,7 +4,7 @@ This repository holds the source to code to reproduce the analysis featured in o
 
 ### Citation
 
-> Jenness SM, Maloney K, Smith SK, Hoover KW, Rosenberg ES, Goodreau SM, Weiss KM, Liu AY, Rao D, Sullivan PS. Addressing Gaps in HIV Preexposure Prophylaxis Care to Reduce Racial Disparities in HIV Incidence in the United States. _American Journal of Epidemiology._ 2019; 188(4): 743-752. 
+> Jones J, Weiss K, Mermin J, Dietz P, Rosenberg ES, Gift T, Chesson H, Sullivan PS, Lyles C, Bernstein K, Jenness SM. Proportion of Incident HIV Cases among Men Who Have Sex with Men Attributable to Gonorrhea and Chlamydia: A Modeling Analysis. Sexually Transmitted Diseases. 2019; 46(6): 357–363.
 
 Additional details may be found in the journal article: https://www.ncbi.nlm.nih.gov/pubmed/31095100
 
