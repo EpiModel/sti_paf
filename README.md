@@ -2,9 +2,15 @@
 
 This repository holds the source to code to reproduce the analysis featured in our HIV/STI transmission model among men who have sex with men in the United States. This study investigated how prevalent gonorheaand and chlamydia infections could impact the acquisition and transmission risk of HIV infection.
 
-### Citation
+### Paper and engine
 
-> Jones J, Weiss K, Mermin J, Dietz P, Rosenberg ES, Gift T, Chesson H, Sullivan PS, Lyles C, Bernstein K, Jenness SM. Proportion of Incident HIV Cases among Men Who Have Sex with Men Attributable to Gonorrhea and Chlamydia: A Modeling Analysis. Sexually Transmitted Diseases. 2019; 46(6): 357–363.
+> Jones J, Weiss K, Mermin J, Dietz P, Rosenberg ES, Gift TL, Chesson H, Sullivan PS, Lyles C, Bernstein KT, Jenness SM. Proportion of Incident Human Immunodeficiency Virus Cases Among Men Who Have Sex With Men Attributable to Gonorrhea and Chlamydia: A Modeling Analysis. _Sex Transm Dis._ 2019; 46(6): 357-363. [doi:10.1097/OLQ.0000000000000980](https://doi.org/10.1097/OLQ.0000000000000980)
+
+The EpiModelHIV engine for this paper is release [`paf1`](https://github.com/EpiModel/EpiModelHIV/releases/tag/paf1) of EpiModel/EpiModelHIV. Install it with:
+
+```r
+remotes::install_github("EpiModel/EpiModelHIV@paf1")
+```
 
 Additional details may be found in the journal article: https://www.ncbi.nlm.nih.gov/pubmed/31095100
 
@@ -34,5 +40,5 @@ install.packages("EpiModel", dep = TRUE)
 # install remotes if necessary, install.packages("remotes")
 remotes::install_github("statnet/tergmLite")
 remotes::install_github("statnet/EpiModelHPC")
-remotes::install_github("statnet/EpiModelHIV", ref = "paf")
+remotes::install_github("statnet/EpiModelHIV", ref = "paf1")
 ```
